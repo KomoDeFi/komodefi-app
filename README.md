@@ -6,9 +6,9 @@ Clone + change passphrase + docker-compose up. Wait for webapp to build in devmo
 ## Notes
 
 The 3 containers work in concert.
-# mm2 is the atomicdex api, it will communicate with the atomicdex p2p network on the configured netid. Currently hardcoded to 7777.
-# mm2-middleware is a nodejs http app that accepts requests and relays them to the mm2 rpc. It is not really safe for building a commercial application because a lot of the dependencies are unmaintained.
-# mm2-frontend is a vuetify 2 app. This is nearly end of life as at November 2022.
+* mm2 is the atomicdex api, it will communicate with the atomicdex p2p network on the configured netid. Currently hardcoded to 7777.
+* mm2-middleware is a nodejs http app that accepts requests and relays them to the mm2 rpc. It is not really safe for building a commercial application because a lot of the dependencies are unmaintained.
+* mm2-frontend is a vuetify 2 app. This is nearly end of life as at November 2022.
 
 ## Requirements
 
