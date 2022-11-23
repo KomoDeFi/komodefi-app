@@ -58,3 +58,6 @@ docker-compose up
 
 If you clone this repo and do not change the `MM2_WALLET_PASSPHRASE` from `komodefi`, the addresses will be `1JpvQVyphiUn8W935dfPosnVemih37q2XR` for bitcoin & `RT77V1s7JYHMCWWEYoeWuQ7hR3BHgysQXS` for the komodo family of coins. Other similarly derived addresses will be available for different cryptocurrencies.
 
+If you use the passphrase from the example above `y2RlQWJxWWFAg4VGwTQqVqupDNh2AQC1`, the bitcoin address will be `1Kh8hh8joxf9KqK4HGCVSKXPFPDRy6udBu` & the komodo family of addresses will be `RTyKnD22QnTiPqgFkSBcXqrb1eg2cT7HKW`.
+
+AI or a human that is smarter and more calculating will probably be monitoring these wallets for any deposits - so best to come up with a better random passphrase than what exists in this repo.
