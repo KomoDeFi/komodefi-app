@@ -1,0 +1,73 @@
+FROM ubuntu:18.04 as builder
+SHELL ["/bin/bash", "--login", "-i", "-c"]
+WORKDIR /
+RUN apt-get update && \
+  apt install -y  build-essential python-dev git jq wget curl nano openssh-server ngrep tmux net-tools screen libcurl4-gnutls-dev
+
+
+ENV NVM_DIR /usr/local/nvm
+
+RUN mkdir -p "$NVM_DIR"; \
+    curl -o- \
+        "https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh" | \
+        bash \
+    ; \
+    source $NVM_DIR/nvm.sh; \
+    nvm install 10
+
+RUN command -v nvm; \
+    command -v node; \
+    node --version; \
+    command -v npm; \
+    npm --version
+
+#RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+#RUN source /root/.bashrc && nvm install 10
+#RUN curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh && \
+#RUN curl -sL https://deb.nodesource.com/setup_13.x -o nodesource_setup.sh && \
+#RUN curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh && \
+#  bash nodesource_setup.sh && \
+#  apt install -y nodejs && \
+#  npm config set prefix ~/.local && \
+#  echo "PATH=~/.local/bin/:\$PATH" >> ~/.bashrc
+
+#RUN apt install -y node-pre-gyp
+#RUN touch /test.txt
+RUN git clone https://github.com/imylomylo/node-cors-server
+RUN cd /node-cors-server && \
+  npm install
+
+#RUN source /root/.bashrc && nvm install 14 && nvm use 14
+
+RUN cd /node-cors-server && \
+  git submodule update --init --recursive && \
+  npm install
+
+#RUN curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh && \
+#  bash nodesource_setup.sh && \
+#  apt install -y nodejs && \
+#  npm config set prefix ~/.local && \
+#  echo "PATH=~/.local/bin/:\$PATH" >> ~/.bashrc
+
+FROM ubuntu:20.04
+SHELL ["/bin/bash", "--login", "-i", "-c"]
+WORKDIR /
+RUN mkdir /node-cors-server
+RUN apt-get update && \
+  apt install -y  wget unzip curl nano openssh-server ngrep tmux net-tools screen vim
+COPY --from=builder /node-cors-server /node-cors-server
+EXPOSE 7780
+COPY entrypoint-mm2-middleware.sh /usr/local/bin/entrypoint.sh
+
+RUN curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh && \
+  bash nodesource_setup.sh && \
+  apt install -y nodejs && \
+  npm config set prefix ~/.local && \
+  echo "PATH=~/.local/bin/:\$PATH" >> ~/.bashrc
+
+RUN command -v nvm; \
+    command -v node; \
+    node --version; \
+    command -v npm; \
+    npm --version
+CMD ["/usr/local/bin/entrypoint.sh"]

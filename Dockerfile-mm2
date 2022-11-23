@@ -1,0 +1,19 @@
+FROM ubuntu:20.04 as builder
+WORKDIR /app
+RUN apt-get update && \
+  apt install -y  wget unzip
+#RUN wget https://github.com/KomodoPlatform/atomicDEX-API/releases/download/beta-2.1.7404/mm2-0f6c72615-Linux-Release.zip
+RUN wget http://195.201.0.6/dev/mm2-f4eb4c962-Linux-Release.zip
+RUN wget https://raw.githubusercontent.com/KomodoPlatform/coins/master/coins
+RUN unzip mm2-f4eb4c962-Linux-Release.zip
+
+
+FROM ubuntu:20.04
+RUN apt-get update && \
+  apt install -y  wget unzip curl nano openssh-server ngrep tmux net-tools screen vim
+COPY --from=builder /app/mm2 /usr/local/bin
+COPY --from=builder /app/coins /usr/local/bin
+COPY entrypoint-mm2.sh /usr/local/bin/entrypoint.sh
+COPY components/mm2/scripts/start.sh /usr/local/bin
+EXPOSE 7783
+CMD ["entrypoint.sh"]
