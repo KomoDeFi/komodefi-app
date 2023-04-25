@@ -7,7 +7,7 @@ services:
       - passphrase=${MM2_WALLET_PASSPHRASE}
       - userpass=${MM2_RPC_PASSWORD}
     entrypoint:
-      - "/usr/local/bin/start.sh"
+      - "/usr/local/bin/mm2-start.sh"
     ports:
       - "${MM2_RPC_PORT}"
     networks:
