@@ -1,0 +1,70 @@
+version: "3.7"
+
+services:
+  mm2:
+    image: komodefi/mm2:0.1
+    environment:
+      - passphrase=${MM2_WALLET_PASSPHRASE}
+      - userpass=${MM2_RPC_PASSWORD}
+    entrypoint:
+      - "/usr/local/bin/mm2-start.sh"
+    ports:
+      - "${MM2_RPC_PORT}"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${MM2_IPV4_ADDR}
+    volumes:
+      - ./data_mm2:${MM2_DATA_PATH}
+  mm2-middleware:
+    image: komodefi/mm2-middleware:0.1
+    environment:
+      - passphrase=${MM2_WALLET_PASSPHRASE}
+      - MM2_WALLET_PASSPHRASE=${MM2_WALLET_PASSPHRASE}
+      - userpass=${MM2_RPC_PASSWORD}
+      - ME_PUBLIC=${ME_PUBLIC}
+      - MM2_IPV4_ADDR=${MM2_IPV4_ADDR}
+      - MM2_RPC_PORT=${MM2_RPC_PORT}
+      - PORT=${MM2_MIDDLEWARE_PORT}
+    entrypoint:
+      - "/usr/local/bin/entrypoint.sh"
+    ports:
+      - "${MM2_MIDDLEWARE_PORT}:${MM2_MIDDLEWARE_PORT}"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${MM2_MIDDLEWARE_IPV4_ADDR}
+    volumes:
+      - ./data_mm2-middlware:${MM2_MIDDLEWARE_DATA_PATH}
+    stdin_open: true
+    tty: true
+  mm2-frontend:
+    image: komodefi/mm2-vuetify3:0.1
+    environment:
+      - passphrase=${MM2_WALLET_PASSPHRASE}
+      - userpass=${MM2_RPC_PASSWORD}
+      - VITE_VUE_APP_MEPUBLIC=${ME_PUBLIC}
+      - VITE_VUE_APP_MEPRIVATE=${ME_PRIVATE}
+      - VITE_VUE_APP_MMBOTURL=${MMBOT_URL}
+    ports:
+      - "${MM2_FRONTEND_PORT}:5173"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${MM2_FRONTEND_IPV4_ADDR}
+  mm2-oldfrontend:
+    image: komodefi/mm2-frontend:0.1
+    environment:
+      - passphrase=${MM2_WALLET_PASSPHRASE}
+      - userpass=${MM2_RPC_PASSWORD}
+      - VUE_APP_MEPUBLIC=${ME_PUBLIC}
+      - VUE_APP_MEPRIVATE=${ME_PRIVATE}
+      - VUE_APP_MMBOTURL=${MMBOT_URL}
+    ports:
+      - "${MM2_OLDFRONTEND_PORT}:8001"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${MM2_OLDFRONTEND_IPV4_ADDR}
+networks:
+  komodefiorderbook:
+    ipam:
+      driver: default
+      config:
+        - subnet: ${DOCKER_KOMODEFI_ORDERBOOK_NETWORK_SUBNET}
