@@ -7,7 +7,7 @@ services:
       - passphrase=${MM2_WALLET_PASSPHRASE}
       - userpass=${MM2_RPC_PASSWORD}
     entrypoint:
-      - "/usr/local/bin/mm2-start.sh"
+      - "/usr/local/bin/start.sh"
     ports:
       - "${MM2_RPC_PORT}"
     networks:
@@ -37,15 +37,15 @@ services:
     stdin_open: true
     tty: true
   mm2-frontend:
-    image: komodefi/mm2-vuetify3:0.1
+    image: komodefi/mm2-frontend:0.1
     environment:
       - passphrase=${MM2_WALLET_PASSPHRASE}
       - userpass=${MM2_RPC_PASSWORD}
-      - VITE_VUE_APP_MEPUBLIC=${ME_PUBLIC}
-      - VITE_VUE_APP_MEPRIVATE=${ME_PRIVATE}
-      - VITE_VUE_APP_MMBOTURL=${MMBOT_URL}
+      - VUE_APP_MEPUBLIC=${ME_PUBLIC}
+      - VUE_APP_MEPRIVATE=${ME_PRIVATE}
+      - VUE_APP_MMBOTURL=${MMBOT_URL}
     ports:
-      - "${MM2_FRONTEND_PORT}:5173"
+      - "${MM2_FRONTEND_PORT}:8001"
     networks:
       komodefiorderbook:
         ipv4_address: ${MM2_FRONTEND_IPV4_ADDR}
