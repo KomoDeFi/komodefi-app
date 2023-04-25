@@ -45,7 +45,7 @@ services:
       - VITE_VUE_APP_MEPRIVATE=${ME_PRIVATE}
       - VITE_VUE_APP_MMBOTURL=${MMBOT_URL}
     ports:
-      - "${MM2_FRONTEND_PORT}:5174"
+      - "${MM2_FRONTEND_PORT}:5173"
     networks:
       komodefiorderbook:
         ipv4_address: ${MM2_FRONTEND_IPV4_ADDR}
