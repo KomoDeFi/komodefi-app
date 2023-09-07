@@ -61,3 +61,11 @@ If you clone this repo and do not change the `MM2_WALLET_PASSPHRASE` from `komod
 If you use the passphrase from the example above `y2RlQWJxWWFAg4VGwTQqVqupDNh2AQC1`, the bitcoin address will be `1Kh8hh8joxf9KqK4HGCVSKXPFPDRy6udBu` & the komodo family of addresses will be `RTyKnD22QnTiPqgFkSBcXqrb1eg2cT7HKW`.
 
 AI or a human that is smarter and more calculating will probably be monitoring these wallets for any deposits - so best to come up with a better random passphrase than what exists in this repo.
+
+## Hetzner in 5 mins
+# Create CX21 VPS with ubuntu2204
+# Add system user in group docker & sudo
+# Install docker & docker-compose
+# Login as new user
+# Clone this repo
+# ./setup.sh

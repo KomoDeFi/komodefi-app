@@ -49,6 +49,19 @@ services:
     networks:
       komodefiorderbook:
         ipv4_address: ${MM2_FRONTEND_IPV4_ADDR}
+  mm2-oldfrontend:
+    image: komodefi/mm2-frontend:0.1
+    environment:
+      - passphrase=${MM2_WALLET_PASSPHRASE}
+      - userpass=${MM2_RPC_PASSWORD}
+      - VUE_APP_MEPUBLIC=${ME_PUBLIC}
+      - VUE_APP_MEPRIVATE=${ME_PRIVATE}
+      - VUE_APP_MMBOTURL=${MMBOT_URL}
+    ports:
+      - "${MM2_OLDFRONTEND_PORT}:8001"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${MM2_OLDFRONTEND_IPV4_ADDR}
 networks:
   komodefiorderbook:
     ipam:
