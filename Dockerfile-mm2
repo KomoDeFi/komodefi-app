@@ -2,11 +2,10 @@ FROM ubuntu:20.04 as builder
 WORKDIR /app
 RUN apt-get update && \
   apt install -y  wget unzip
-#RUN wget https://github.com/KomodoPlatform/atomicDEX-API/releases/download/beta-2.1.7404/mm2-0f6c72615-Linux-Release.zip
-#RUN wget http://195.201.0.6/dev/mm2-f4eb4c962-Linux-Release.zip
 RUN wget https://github.com/KomodoPlatform/atomicDEX-API/releases/download/v1.0.2-beta/mm2-fa745617d-Linux-Release.zip
 RUN wget https://raw.githubusercontent.com/KomodoPlatform/coins/master/coins
 RUN unzip mm2-fa745617d-Linux-Release.zip
+
 
 
 FROM ubuntu:20.04
