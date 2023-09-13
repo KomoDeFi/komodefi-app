@@ -11,7 +11,8 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh && \
   echo "PATH=~/.local/bin/:\$PATH" >> ~/.bashrc
 
 RUN echo next
-RUN git clone https://github.com/iamahmedshahh/mm2v3 /app
+#RUN git clone https://github.com/iamahmedshahh/mm2v3 /app
+RUN git clone -b bugfix/rm-scss-utility-classes  https://github.com/imylomylo/mm2v3 /app
 WORKDIR /app
 #RUN cd /app && npm update
 RUN cd /app && npm install
