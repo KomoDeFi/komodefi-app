@@ -1,0 +1,153 @@
+version: "3.7"
+
+services:
+  i1mm2:
+    image: komodefi/mm2:0.1
+    environment:
+      - passphrase=${i1_MM2_WALLET_PASSPHRASE}
+      - userpass=${i1_MM2_RPC_PASSWORD}
+    entrypoint:
+      - "/usr/local/bin/mm2-start.sh"
+    ports:
+      - "${i1_MM2_RPC_PORT}"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${i1_MM2_IPV4_ADDR}
+    volumes:
+      - ./data_mm2:${i1_MM2_DATA_PATH}
+  i1mm2-middleware:
+    image: komodefi/mm2-middleware:0.1
+    environment:
+      - passphrase=${i1_MM2_WALLET_PASSPHRASE}
+      - MM2_WALLET_PASSPHRASE=${i1_MM2_WALLET_PASSPHRASE}
+      - userpass=${i1_MM2_RPC_PASSWORD}
+      - ME_PUBLIC=${i1_ME_PUBLIC}
+      - MM2_IPV4_ADDR=${i1_MM2_IPV4_ADDR}
+      - MM2_RPC_PORT=${i1_MM2_RPC_PORT}
+      - PORT=${i1_MM2_MIDDLEWARE_PORT}
+    entrypoint:
+      - "/usr/local/bin/entrypoint.sh"
+    ports:
+      - "${i1_MM2_MIDDLEWARE_PORT}:${i1_MM2_MIDDLEWARE_PORT}"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${i1_MM2_MIDDLEWARE_IPV4_ADDR}
+    volumes:
+      - ./data_mm2-middlware:${i1_MM2_MIDDLEWARE_DATA_PATH}
+    stdin_open: true
+    tty: true
+  i1mm2-frontend:
+    image: komodefi/mm2-vuetify3:0.1
+    environment:
+      - passphrase=${i1_MM2_WALLET_PASSPHRASE}
+      - userpass=${i1_MM2_RPC_PASSWORD}
+      - VITE_VUE_APP_MEPUBLIC=${i1_ME_PUBLIC}
+      - VITE_VUE_APP_MEPRIVATE=${i1_ME_PRIVATE}
+      - VITE_VUE_APP_MMBOTURL=${i1_MMBOT_URL}
+    ports:
+      - "${i1_MM2_FRONTEND_PORT}:5173"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${i1_MM2_FRONTEND_IPV4_ADDR}
+  i2mm2:
+    image: komodefi/mm2:0.1
+    environment:
+      - passphrase=${i2_MM2_WALLET_PASSPHRASE}
+      - userpass=${i2_MM2_RPC_PASSWORD}
+    entrypoint:
+      - "/usr/local/bin/mm2-start.sh"
+    ports:
+      - "${i2_MM2_RPC_PORT}"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${i2_MM2_IPV4_ADDR}
+    volumes:
+      - ./data_mm2:${i2_MM2_DATA_PATH}
+  i2mm2-middleware:
+    image: komodefi/mm2-middleware:0.1
+    environment:
+      - passphrase=${i2_MM2_WALLET_PASSPHRASE}
+      - MM2_WALLET_PASSPHRASE=${i2_MM2_WALLET_PASSPHRASE}
+      - userpass=${i2_MM2_RPC_PASSWORD}
+      - ME_PUBLIC=${i2_ME_PUBLIC}
+      - MM2_IPV4_ADDR=${i2_MM2_IPV4_ADDR}
+      - MM2_RPC_PORT=${i2_MM2_RPC_PORT}
+      - PORT=${i2_MM2_MIDDLEWARE_PORT}
+    entrypoint:
+      - "/usr/local/bin/entrypoint.sh"
+    ports:
+      - "${i2_MM2_MIDDLEWARE_PORT}:${i2_MM2_MIDDLEWARE_PORT}"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${i2_MM2_MIDDLEWARE_IPV4_ADDR}
+    volumes:
+      - ./data_mm2-middlware:${i2_MM2_MIDDLEWARE_DATA_PATH}
+    stdin_open: true
+    tty: true
+  i2mm2-frontend:
+    image: komodefi/mm2-vuetify3:0.1
+    environment:
+      - passphrase=${i2_MM2_WALLET_PASSPHRASE}
+      - userpass=${i2_MM2_RPC_PASSWORD}
+      - VITE_VUE_APP_MEPUBLIC=${i2_ME_PUBLIC}
+      - VITE_VUE_APP_MEPRIVATE=${i2_ME_PRIVATE}
+      - VITE_VUE_APP_MMBOTURL=${i2_MMBOT_URL}
+    ports:
+      - "${i2_MM2_FRONTEND_PORT}:5173"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${i2_MM2_FRONTEND_IPV4_ADDR}
+  i3mm2:
+    image: komodefi/mm2:0.1
+    environment:
+      - passphrase=${i3_MM2_WALLET_PASSPHRASE}
+      - userpass=${i3_MM2_RPC_PASSWORD}
+    entrypoint:
+      - "/usr/local/bin/mm2-start.sh"
+    ports:
+      - "${i3_MM2_RPC_PORT}"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${i3_MM2_IPV4_ADDR}
+    volumes:
+      - ./data_mm2:${i3_MM2_DATA_PATH}
+  i3mm2-middleware:
+    image: komodefi/mm2-middleware:0.1
+    environment:
+      - passphrase=${i3_MM2_WALLET_PASSPHRASE}
+      - MM2_WALLET_PASSPHRASE=${i3_MM2_WALLET_PASSPHRASE}
+      - userpass=${i3_MM2_RPC_PASSWORD}
+      - ME_PUBLIC=${i3_ME_PUBLIC}
+      - MM2_IPV4_ADDR=${i3_MM2_IPV4_ADDR}
+      - MM2_RPC_PORT=${i3_MM2_RPC_PORT}
+      - PORT=${i3_MM2_MIDDLEWARE_PORT}
+    entrypoint:
+      - "/usr/local/bin/entrypoint.sh"
+    ports:
+      - "${i3_MM2_MIDDLEWARE_PORT}:${i3_MM2_MIDDLEWARE_PORT}"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${i3_MM2_MIDDLEWARE_IPV4_ADDR}
+    volumes:
+      - ./data_mm2-middlware:${i3_MM2_MIDDLEWARE_DATA_PATH}
+    stdin_open: true
+    tty: true
+  i3mm2-frontend:
+    image: komodefi/mm2-vuetify3:0.1
+    environment:
+      - passphrase=${i3_MM2_WALLET_PASSPHRASE}
+      - userpass=${i3_MM2_RPC_PASSWORD}
+      - VITE_VUE_APP_MEPUBLIC=${i3_ME_PUBLIC}
+      - VITE_VUE_APP_MEPRIVATE=${i3_ME_PRIVATE}
+      - VITE_VUE_APP_MMBOTURL=${i3_MMBOT_URL}
+    ports:
+      - "${i3_MM2_FRONTEND_PORT}:5173"
+    networks:
+      komodefiorderbook:
+        ipv4_address: ${i3_MM2_FRONTEND_IPV4_ADDR}
+networks:
+  komodefiorderbook:
+    ipam:
+      driver: default
+      config:
+        - subnet: ${DOCKER_KOMODEFI_ORDERBOOK_NETWORK_SUBNET}
