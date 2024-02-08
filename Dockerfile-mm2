@@ -2,9 +2,9 @@ FROM ubuntu:20.04 as builder
 WORKDIR /app
 RUN apt-get update && \
   apt install -y  wget unzip
-RUN wget https://github.com/KomodoPlatform/atomicDEX-API/releases/download/v1.0.2-beta/mm2-fa745617d-Linux-Release.zip
+RUN wget https://github.com/KomodoPlatform/komodo-defi-framework/releases/download/v2.0.0-beta/mm2-b0fd99e84-Linux-Release.zip
 RUN wget https://raw.githubusercontent.com/KomodoPlatform/coins/master/coins
-RUN unzip mm2-fa745617d-Linux-Release.zip
+RUN unzip mm2-b0fd99e84-Linux-Release.zip
 
 
 
