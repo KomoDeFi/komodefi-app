@@ -9,14 +9,17 @@ if [ ! -f "/passphrase.txt" ]; then
   # write the mm2 userpass & passphrase using randomly generated values
   echo "passphrase=$passphrase" > /passphrase.txt
   echo "userpass=$userpass" > /userpass.txt
+  echo "netid=8762" > /netid.txt
 else
   echo "passphrase.txt Mounted already by operator"
   source /passphrase.txt
   source /userpass.txt
+  source /netid.txt
 fi
 
 ln -sf /passphrase.txt /usr/local/bin/
 ln -sf /userpass.txt /usr/local/bin/
+ln -sf /netid.txt /usr/local/bin/
 
 # set the root password for this container to root.
 # TODO generate random password and send over telegram
