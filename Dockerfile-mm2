@@ -3,7 +3,8 @@ WORKDIR /app
 RUN apt-get update && \
   apt install -y  wget unzip
 RUN wget https://github.com/KomodoPlatform/komodo-defi-framework/releases/download/v2.0.0-beta/mm2-b0fd99e84-Linux-Release.zip
-RUN wget https://raw.githubusercontent.com/KomodoPlatform/coins/master/coins
+#RUN wget https://raw.githubusercontent.com/KomodoPlatform/coins/master/coins
+RUN wget https://raw.githubusercontent.com/cipig/coins/e4092395fd5a4a932eeba3e0fa1c955a6c9757a6/coins
 RUN unzip mm2-b0fd99e84-Linux-Release.zip
 
 
